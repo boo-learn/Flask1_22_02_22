@@ -10,11 +10,12 @@ from flask_migrate import Migrate
 
 
 BASE_DIR = Path(__file__).parent
-PATH_TO_DB = BASE_DIR / "test.db"
 # Request(HTTP) --> request
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("://", "ql://", 1) or f"sqlite:///{BASE_DIR / 'main.db'}"
+
+path_to_db = os.environ.get('DATABASE_URL').replace("://", "ql://", 1) if os.environ.get('DATABASE_URL') else None
+app.config['SQLALCHEMY_DATABASE_URI'] = path_to_db or f"sqlite:///{BASE_DIR / 'main.db'}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
