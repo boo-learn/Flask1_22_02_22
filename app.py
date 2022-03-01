@@ -8,6 +8,7 @@ from flask import Flask, jsonify, request, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+
 BASE_DIR = Path(__file__).parent
 PATH_TO_DB = BASE_DIR / "test.db"
 # Request(HTTP) --> request
